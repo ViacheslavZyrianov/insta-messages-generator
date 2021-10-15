@@ -1,26 +1,43 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import construct from './components/construct'
+import preview from './components/preview'
+import { reactive } from 'vue'
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+const messages = reactive([])
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+function onMessagesChange (payload) {
+  messages.length = 0
+  messages.push(...payload)
 }
 </script>
 
+<template>
+  <construct @messagesChange="onMessagesChange" />
+  <preview :messages="messages" />
+</template>
+
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
 }
 </style>
